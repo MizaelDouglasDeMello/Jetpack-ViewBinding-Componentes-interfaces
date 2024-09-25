@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,25 +31,51 @@ class AulaActivity : AppCompatActivity() {
             insets
         }
 //        supportActionBar?.hide()
-        inicializarActionBar()
+//        inicializarActionBar()
+        inicializarToolbar()
 
         with(binding) {
 
         }
     }
 
+    private fun inicializarToolbar() {
+        binding.tbMenu.title = "Youtube"
+        binding.tbMenu.setTitleTextColor(
+            ContextCompat.getColor(this, R.color.white)
+        )
+
+
+        binding.tbMenu.inflateMenu(R.menu.menu_principal)
+        binding.tbMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.itemAdd -> {
+                    Toast.makeText(applicationContext, "Adicionar", Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnMenuItemClickListener true
+                }
+                else -> false
+            }
+        }
+    }
+
+
     private fun inicializarActionBar() {
         addMenuProvider(
-            object : MenuProvider{
+            object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.menu_principal,menu)
+                    menuInflater.inflate(R.menu.menu_principal, menu)
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    when(menuItem.itemId){
-                        R.id.itemAdd -> Toast.makeText(applicationContext, "Adicionar", Toast.LENGTH_SHORT).show()
+                    when (menuItem.itemId) {
+                        R.id.itemAdd -> Toast.makeText(
+                            applicationContext,
+                            "Adicionar",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                return true
+                    return true
                 }
             }
         )
