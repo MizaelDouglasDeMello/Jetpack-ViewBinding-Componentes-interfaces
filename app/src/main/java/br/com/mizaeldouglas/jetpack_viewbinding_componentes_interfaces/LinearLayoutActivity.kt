@@ -26,15 +26,39 @@ class LinearLayoutActivity : AppCompatActivity() {
         }
 
         with(binding){
-            fabBtn.setOnClickListener {
-                if (groupMenu.isVisible){
-                    groupMenu.visibility = View.INVISIBLE
-                }else{
-                    groupMenu.visibility = View.VISIBLE
-                }
+
+            btnResult.setOnClickListener{
+                radioButton()
             }
+
+//            fabBtn.setOnClickListener {
+//                if (groupMenu.isVisible){
+//                    groupMenu.visibility = View.INVISIBLE
+//                }else{
+//                    groupMenu.visibility = View.VISIBLE
+//                }
+//            }
+
+
         }
 
 
+    }
+
+    private fun radioButton(){
+        val masc = binding.rbMasc.isChecked
+        val idItem = binding.rgSex.checkedRadioButtonId
+        binding.txtResult.text = when( idItem ){
+            R.id.rbMasc -> "Resultado: Masculino"
+            R.id.rbFem -> "Resultado: Feminino"
+            else -> "Resultado: nada selecionado."
+        }
+
+//        binding.txtResult.text = if (masc) {
+//            "Masculino"
+//        } else {
+//            "Feminino"
+//        }
+        binding.rgSex.clearCheck()
     }
 }
